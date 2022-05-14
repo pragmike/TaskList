@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,10 +15,12 @@
   <body>
     <main class="main">
       <h1>To-Do List</h1>
-      <div class="container">
-        <input type="text" id="input-task" required />
-        <button type="submit" id="add-task-button">ADD TASK</button>
-      </div>
+      <form action="" method="get">
+        <div class="container">
+          <input type="text" id="input-task" placeholder="New Task" required />
+          <button type="submit" id="add-task-button">ADD TASK</button>
+        </div>
+      </form>
       <ul id="task-list"></ul>
     </main>
     <script src="script.js"></script>

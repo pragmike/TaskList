@@ -8,7 +8,7 @@ function saveListToLocal() {
 
   liArray.forEach((li) => {
     let item = {};
-    item.name = li.children[0].children[1].innerText;
+    item.name = li.children[0].children[0].innerText;
     item.checked = li.classList.contains("checked");
     taskListArray.push(item);
   });
@@ -26,29 +26,37 @@ function createTask(taskName, taskChecked = false) {
   const newDiv = document.createElement("div");
   newDiv.classList.add("container");
 
+  //create lbl
+  const newLbl = document.createElement("label");
+  newLbl.classList.add("task");
+  // newLbl.innerText = taskName;
+
   //create input
   const newCheckbox = document.createElement("input");
   newCheckbox.type = "checkbox";
-  newCheckbox.classList.add("checkbox");
+  // newCheckbox.classList.add("checkbox");
   newCheckbox.checked = taskChecked;
+  // newCheckbox.name = taskName;
   newCheckbox.addEventListener("click", (ev) => {
     const targetElement = ev.target;
-    targetElement.parentElement.parentElement.classList.toggle("checked");
+    const liToChecked = targetElement.closest("li");
+    liToChecked.classList.toggle("checked");
     saveListToLocal();
   });
 
   //create span
   const newSpan = document.createElement("span");
-  newSpan.classList.add("task");
+  newSpan.classList.add("task__span");
+  // newSpan.classList.add("task");
   newSpan.innerText = taskName;
 
   //create button
   const newButton = document.createElement("button");
-  newButton.classList.add("delete-btn");
+  newButton.classList.add("task__delete");
   // newButton.innerText = 'x';
   newButton.addEventListener("click", (ev) => {
     const targetElement = ev.target;
-    const liToDelete = targetElement.parentElement.parentElement;
+    const liToDelete = targetElement.closest("li");
 
     liToDelete.style.opacity = "0";
     liToDelete.style.transform = "translate(30px) scale(1, 0.01)";
@@ -61,8 +69,9 @@ function createTask(taskName, taskChecked = false) {
   });
 
   //assemble task
-  newDiv.appendChild(newCheckbox);
-  newDiv.appendChild(newSpan);
+  newLbl.appendChild(newCheckbox);
+  newLbl.appendChild(newSpan);
+  newDiv.appendChild(newLbl);
   newDiv.appendChild(newButton);
   newTask.appendChild(newDiv);
   taskList.appendChild(newTask);
